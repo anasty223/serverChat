@@ -11,7 +11,7 @@ const server = app.listen("5000", () => {
 
 const io = socket(server, {
   cors: {
-    origin: 'http://localhost:5000/',
+    origin: 'https://serverchat-mxy7.onrender.com',
     methods: ['GET','POST','DELETE','UPDATE','PUT','PATCH'],
     allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With', 'Accept', 'Origin', 'Access-Control-Allow-Origin', 'Access-Control-Allow-Headers', 'Access-Control-Allow-Methods', 'Access-Control-Allow-Credentials'],
     withCredentials: true
