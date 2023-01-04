@@ -9,7 +9,7 @@ const server = http.createServer(app);
 
 const io = new Server(server, {
   cors: {
-    origin: "https://serverchat-mxy7.onrender.com",
+    origin: "https://realtimchattrunova.netlify.app/",
     methods: ["GET", "POST"],
   },
 });
