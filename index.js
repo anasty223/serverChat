@@ -2,19 +2,15 @@ const express = require("express");
 const app = express();
 const http = require("http");
 const cors = require("cors");
-const socket = require("socket.io");
+const { Server } = require("socket.io");
 app.use(cors());
 
-const server = app.listen("5000", () => {
-  console.log("Server Running on Port 5000...");
-});
+const server = http.createServer(app);
 
-const io = socket(server, {
+const io = new Server(server, {
   cors: {
-    origin: 'https://serverchat-mxy7.onrender.com',
-    methods: ['GET','POST','DELETE','UPDATE','PUT','PATCH'],
-    allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With', 'Accept', 'Origin', 'Access-Control-Allow-Origin', 'Access-Control-Allow-Headers', 'Access-Control-Allow-Methods', 'Access-Control-Allow-Credentials'],
-    withCredentials: true
+    origin: "http://localhost:5000",
+    methods: ["GET", "POST"],
   },
 });
 
@@ -26,8 +22,6 @@ io.on("connection", (socket) => {
     console.log(`User with ID: ${socket.id} joined room: ${data}`);
   });
 
-
-
   socket.on("send_message", (data) => {
     socket.to(data.room).emit("receive_message", data);
   });
@@ -36,6 +30,7 @@ io.on("connection", (socket) => {
     console.log("User Disconnected", socket.id);
   });
 });
-// server.listen("5000", () => {
-//   console.log("SERVER RUNNING");
-// });
+
+server.listen(5000, () => {
+  console.log("SERVER RUNNING");
+});
