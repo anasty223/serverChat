@@ -13,7 +13,7 @@ const server = app.listen("5000", () => {
 
 io = socket(server, {
   cors:{
-      origin: 'https://realtimchattrunova.netlify.app/',
+      origin: 'http://localhost:5000/',
       methods: ['GET','POST','DELETE','UPDATE','PUT','PATCH'],
       allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With', 'Accept', 'Origin', 'Access-Control-Allow-Origin', 'Access-Control-Allow-Headers', 'Access-Control-Allow-Methods', 'Access-Control-Allow-Credentials'],
       withCredentials: true
