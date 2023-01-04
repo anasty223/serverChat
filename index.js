@@ -1,20 +1,24 @@
 const express = require("express");
+const socket = require("socket.io");
 const app = express();
-const http = require("http");
 const cors = require("cors");
-const { Server } = require("socket.io");
+
 app.use(cors());
+app.use(express.json());
 
-const server = http.createServer(app);
-
-const io = new Server(server, {
-  cors: {
-    origin: "https://realtimchattrunova.netlify.app/",
-     methods: ['GET','POST','DELETE','UPDATE','PUT','PATCH'],
-        allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With', 'Accept', 'Origin', 'Access-Control-Allow-Origin', 'Access-Control-Allow-Headers', 'Access-Control-Allow-Methods', 'Access-Control-Allow-Credentials'],
-        withCredentials: true
-  },
+// const server = http.createServer(app);
+const server = app.listen("5000", () => {
+  console.log("Server Running on Port 5000...");
 });
+
+io = socket(server, {
+  cors:{
+      origin: 'http://localhost:5000/',
+      methods: ['GET','POST','DELETE','UPDATE','PUT','PATCH'],
+      allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With', 'Accept', 'Origin', 'Access-Control-Allow-Origin', 'Access-Control-Allow-Headers', 'Access-Control-Allow-Methods', 'Access-Control-Allow-Credentials'],
+      withCredentials: true
+  }
+})
 
 io.on("connection", (socket) => {
   console.log(`User Connected: ${socket.id}`);
@@ -33,6 +37,6 @@ io.on("connection", (socket) => {
   });
 });
 
-server.listen(3001, () => {
-  console.log("SERVER RUNNING");
-});
+// server.listen(3001, () => {
+//   console.log("SERVER RUNNING");
+// });
