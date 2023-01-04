@@ -10,7 +10,9 @@ const server = http.createServer(app);
 const io = new Server(server, {
   cors: {
     origin: "https://realtimchattrunova.netlify.app/",
-    methods: ["GET", "POST"],
+     methods: ['GET','POST','DELETE','UPDATE','PUT','PATCH'],
+        allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With', 'Accept', 'Origin', 'Access-Control-Allow-Origin', 'Access-Control-Allow-Headers', 'Access-Control-Allow-Methods', 'Access-Control-Allow-Credentials'],
+        withCredentials: true
   },
 });
 
